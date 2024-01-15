@@ -196,6 +196,9 @@ typNames typ = case typ of
 #if MIN_VERSION_template_haskell(2,16,0)
     ForallVisT _ t -> typNames t
 #endif
+#if MIN_VERSION_template_haskell(2,17,0)
+    MulArrowT -> []
+#endif
 {- }}} -}
 
 infoNames :: Info -> [Name]{- {{{ -}
@@ -232,7 +235,7 @@ infoNames info = case info of
 -- a list of 'Name's found, along with the output of 'reify' for reference.
 --
 -- Suppose we are given a module @M@ that exports a function @s@, but not
--- the type @T@, the constrcutor @C@, nor the field @f@:
+-- the type @T@, the constructor @C@, nor the field @f@:
 --
 -- > module M (s) where
 -- > newtype T = C { f :: Int }
